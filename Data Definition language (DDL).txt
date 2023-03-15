@@ -1,0 +1,69 @@
+SQL important queries:
+ 
+
+IDE: goormide
+To start mysql :  mysql-ctl cli
+
+
+DDL - Data Definition language: 
+===============================================
+1.create
+2.drop
+3.alter
+4.truncate
+
+
+
+
+1.	Shows available databases:
+===============================================
+
+SHOW DATABASES;
+SHOW TABLES ;
+
+2.	To work On preferred database:
+===============================================
+
+ USE TEST;
+
+3.	Current Working database:
+===============================================
+
+SELECT DATABASE();
+
+4.	Create:
+===============================================
+
+CREATE DATABASE test;
+
+create table if not exists employee(
+first_name varchar(20),
+middle_name varchar(20),
+last_name varchar(20),
+age int,
+salary int,
+experience float,
+location varchar(20)
+);
+
+
+5. Show create table:
+===============================================
+SHOW CREATE TABLE employee;
+SHOW CREATE TABLE dept;
+
+
+6. Structure of table:
+===============================================
+describe employee;
+desc employee;
+
+
+7.drop:
+===============================================
+drop database TEST;
+drop table employee;
+
+
+
+
