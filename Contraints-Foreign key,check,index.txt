@@ -1,0 +1,9 @@
+
+Contraints:
+=============
+
+•	FOREIGN KEY
+
+•	CHECK 
+
+•	INDEX 

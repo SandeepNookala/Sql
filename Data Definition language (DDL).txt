@@ -1,9 +1,3 @@
-SQL important queries:
- 
-
-IDE: goormide
-To start mysql :  mysql-ctl cli
-
 
 DDL - Data Definition language: 
 ===============================================
@@ -13,26 +7,8 @@ DDL - Data Definition language:
 4.truncate
 
 
-
-
-1.	Shows available databases:
-===============================================
-
-SHOW DATABASES;
-SHOW TABLES ;
-
-2.	To work On preferred database:
-===============================================
-
- USE TEST;
-
-3.	Current Working database:
-===============================================
-
-SELECT DATABASE();
-
-4.	Create:
-===============================================
+1.Create:
+==========
 
 CREATE DATABASE test;
 
@@ -43,27 +19,66 @@ last_name varchar(20),
 age int,
 salary int,
 experience float,
-location varchar(20)
+location varchar(20),
+primary key(first_name)
 );
 
+Shows available databases:
+---------------
+SHOW DATABASES;
+SHOW TABLES ;
 
-5. Show create table:
-===============================================
+
+To work On preferred database:
+------------------
+USE TEST;
+
+
+Current Working database:
+----------------------
+SELECT DATABASE();
+
+
+Show create table:
+-----------------------
 SHOW CREATE TABLE employee;
 SHOW CREATE TABLE dept;
 
 
-6. Structure of table:
-===============================================
+Structure of table:
+---------------------
 describe employee;
 desc employee;
 
 
-7.drop:
-===============================================
+2.drop:
+=================
 drop database TEST;
 drop table employee;
 
+3.alter:    used to do strucutral changes to table 
+==========
 
+add new column:
+----------------
+alter table employee add column id int ;
 
+drop column:
+---------------
+alter table employee drop column id; 
 
+modify column:
+---------------
+alter table employee modify column first_name varchar(30);
+alter table employee modify column location varchar(30);
+
+primary key:
+-----------
+alter table employee drop primary key;
+
+alter table employee add primary key (first_name);
+
+4.truncate: remove all records
+===========
+
+truncate table employee;

@@ -14,11 +14,7 @@ Contraints:
 
 •	UNIQUE 
 
-•	FOREIGN KEY
 
-•	CHECK 
-
-•	INDEX 
 
  
 

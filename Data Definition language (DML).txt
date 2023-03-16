@@ -31,6 +31,7 @@ insert into employee(first_name,last_name ,age ,salary ,experience ,location) va
 
 insert into employee values('Krishna',NULL,'Nookala',60,200000,30,'Narsampet');
 insert into employee values('Padma',NULL,'Nookala',50,10000,20,'Narsampet');
+insert into employee values('teju',NULL,'Nookala',50,1,20,'hyd');
 
 multiple inserts in one go:
 --------------------------
@@ -57,3 +58,35 @@ select specfic rows based on condition:
 -----------------------------
 
 select * from employee where age>27;
+select * from employee where first_name = 'SANDEEP';
+
+case sensitive select query:
+==========================
+select * from employee where binary first_name ='SANDEEP'; 
+
+alias:
+======
+select first_name as name ,last_name as surname from employee;
+
+
+3.UPDATE:
+=========
+update employee set last_name = 'gattu' where salary = 10;
+
+update employee set last_name = 'jangili' where salary =100;
+
+update employee set salary = salary+5000 ;
+
+update employee set location = 'tirumalagiri' where first_name = 'swathi' and last_name = 'gattu';
+
+
+4.Delete:
+=========
+remove specfic record:
+=============
+delete from employee where first_name= 'teju';
+
+remove all record:
+============
+delete from employee;
+
