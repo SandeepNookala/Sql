@@ -1,0 +1,71 @@
+
+Keywords
+========
+
+.Distinct
+.orderby
+.where
+.limit
+.like
+
+Distinct:
+===========
+
+select distinct location from student;
+select distinct company from student;
+select distinct soj from student;
+
+Order by:
+==========
+
+select * from student order by yoe;
+select * from student order by fname;
+select fname,yoe from student order by yoe;
+select * from student order by yoe desc;
+select fname,yoe from student order by 1;
+select fname,yoe from student order by 2;
+select fname,yoe from student order by fname,yoe;
+
+where:
+========
+
+select * from student where yoe>2;
+
+Limit:
+=======
+select * from student limit 3;
+select * from student limit 0,3;
+
+Order by & Limit :
+=================
+select fname,lname,yoe from student order by yoe desc limit 5;
+
+select fname,lname,soj,yoe,enrollment_date from student order by batch_date desc limit 5;
+
+select * from student order by batch_date desc limit 5;
+
+wildcard character:
+===================
+. % (match with characters)
+. _ (one character)
+
+Escape character:
+================
+.\ (ignores character)
+
+Like : 
+======
+
+select * from student where fname like '%s%';
+select * from student where fname like 's%';
+select * from student where fname like '%s';
+select * from student where fname like '%na';
+select * from student where batch_date like '%-01-%';
+
+Count No.of characters :
+================
+select * from student where fname like '______';
+
+
+
+

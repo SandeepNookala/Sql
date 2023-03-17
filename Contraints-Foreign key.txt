@@ -6,11 +6,6 @@ Contraints:
       parent table
 	  child table
 
-•	CHECK 
-
-•	INDEX 
-
-
 1.FOREIGN KEY:
 ===============
 
