@@ -1,0 +1,40 @@
+
+logical operators:
+==================
+
+1. equal       :  = 
+
+select * from student where location = 'bangalore';
+
+2. not equal   : !=
+
+select * from student where location != 'bangalore';
+
+
+3. and
+=======
+select * from student where location = 'bangalore' and yoe<8 and soj= 'youtube';
+
+
+
+4.or
+====
+select * from student where yoe<6 or yoe>12;
+
+select * from student where company = 'tcs' or company = 'google' or company = 'ibm';
+
+between: (in range)
+================
+select * from student where yoe between 6 and 12;
+
+not between: (not range)
+================
+select * from student where yoe not between 6 and 12;
+
+in:(present within given list)
+================
+select * from student where company in ('tcs','google','ibm'); 
+
+not in:(not present within given list)
+================
+select * from student where company not in ('tcs','google','ibm');

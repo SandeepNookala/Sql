@@ -27,6 +27,8 @@ insert into course(name,months,fee) values('big data',6,50000),
 ('devops',4,30000);
 
 
+insert into course (name,months,fee) values('data Structure',3,20000);
+
 create Student table (child table):
 ---------------------------------
 
@@ -58,10 +60,10 @@ insert into student (fname,lname,email,phone,course_id,yoe,
 company,batch_date,soj,location) values 
 ('Sandeep','Nookala','sandeep@gmail.com','7989681270',1,5,'tcs','11-11-21','youtube','Bangalore'),
 ('Satish','Nookala','satish@gmail.com','9293111539',2,10,'synecron','31-01-22','google','Hyderabad'),
-('Krishna','Nookala','krishna@gmail.com','9059741955',4,20,'self','12-08-19','facebook','Narsampet'),
-('swathi','gattu','swathi@gmail.com','8989681280',3,1,'Acadamy','12-01-23','instagram','Hyderabad'),
-('Padma','taddu','padma@gmail.com','9979897990',4,5,'self','01-01-20','referal','Narsampet'),
-('anusha','jangili','anusha@gamil.com','6878581270',2,2,'self','17-03-23','referal','Hyderabad');
+('Krishna','Nookala','krishna@gmail.com','9059741955',4,20,'google','12-08-19','facebook','Narsampet'),
+('swathi','gattu','swathi@gmail.com','8989681280',3,1,'IBM','12-01-23','instagram','Hyderabad'),
+('Padma','taddu','padma@gmail.com','9979897990',4,5,'microsoft','01-01-20','referal','Narsampet'),
+('anusha','jangili','anusha@gamil.com','6878581270',2,2,'facebook','17-03-23','referal','Hyderabad');
 
 insert into student (fname,lname,email,phone,course_id,yoe,
 company,batch_date,soj,location) values ('teju','Nookala=','teju@gmail.com','8889681170',6,1,'tcs','11-11-21','facebook','tirupathi');

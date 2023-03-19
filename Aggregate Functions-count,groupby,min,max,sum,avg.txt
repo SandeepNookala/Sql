@@ -10,6 +10,7 @@ select count(*) from student;
 count & distinct:
 ===================
 select count((company)) as company_count from student;
+
 select count(distinct(company)) as company_count from student;
 
 select count(distinct(location)) as diff_loc from student;

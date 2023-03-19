@@ -53,14 +53,22 @@ Escape character:
 ================
 .\ (ignores character)
 
-Like : 
-======
+
+Keyword search : 
+================
+like:
+=====
 
 select * from student where fname like '%s%';
 select * from student where fname like 's%';
 select * from student where fname like '%s';
 select * from student where fname like '%na';
 select * from student where batch_date like '%-01-%';
+select * from course where name like '%data%';
+not like:
+=========
+
+select * from course where name not like '%data%';
 
 Count No.of characters :
 ================
