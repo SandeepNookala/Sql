@@ -1,0 +1,197 @@
+
+leet code :
+=========
+
+https://leetcode.com/nookala382/
+
+
+175. Combine Two Tables:
+========================
+
+Person table:
++----------+----------+-----------+
+| personId | lastName | firstName |
++----------+----------+-----------+
+| 1        | Wang     | Allen     |
+| 2        | Alice    | Bob       |
++----------+----------+-----------+
+Address table:
++-----------+----------+---------------+------------+
+| addressId | personId | city          | state      |
++-----------+----------+---------------+------------+
+| 1         | 2        | New York City | New York   |
+| 2         | 3        | Leetcode      | California |
++-----------+----------+---------------+------------+
+
+select p.lastName,p.firstName,a.city,a.state
+from person p
+left join address a on p.personId = a.personId
+
+176. Second Highest Salary:
+----------------------------
+Employee table:
++----+--------+
+| id | salary |
++----+--------+
+| 1  | 100    |
+| 2  | 200    |
+| 3  | 300    |
++----+--------+
+
+
+Generic solutions: 2nd ,5th etc higest salary
+-----------------
+2nd  higest salary:
+-------------------
+select ifnull (select distinct salary from employee order by salary desc limit 1 offset 1,null)
+as SecondHighestSalary ;
+
+5th  higest salary:
+-----------------
+select ifnull((select distinct salary from employee order by salary desc limit 1 offset 4,null)
+as FithHighestSalary;
+
+
+using dense_rank:
+------------------
+select ifnull((select distinct salary from
+(select salary,dense_rank() over(order by salary desc)as sal from employee)
+employee where sal =2),null)as SecondHighestSalary ;
+
+
+
+178.Rank Scores : (hint: To aviod rank as function use within quatations marks)
+------------------
+
+Scores table:
++----+-------+
+| id | score |
++----+-------+
+| 1  | 3.50  |
+| 2  | 3.65  |
+| 3  | 4.00  |
+| 4  | 3.85  |
+| 5  | 4.00  |
+| 6  | 3.65  |
++----+-------+
+
+select scores,dense_rank() over (order by scores desc)as 'rank' from scores;
+
+
+180. Consecutive Numbers : (self join with distinct)
+--------------
++----+-----+
+| id | num |
++----+-----+
+| 1  | 1   |
+| 2  | 1   |
+| 3  | 1   |
+| 4  | 2   |
+| 5  | 1   |
+| 6  | 2   |
+| 7  | 2   |
++----+-----+
+
+select distinct l1.num as ConsecutiveNums 
+from logs as l1
+join logs as l2 on l2.id = l1.id+1 and l2.id = l1.id
+join logs as l3 on l3.id = l1.id+2 and l3.id = l1.id
+
+
+
+181. Employees Earning More Than Their Managers: (self join)
+-------------------------------------------
+Employee table:
++----+-------+--------+-----------+
+| id | name  | salary | managerId |
++----+-------+--------+-----------+
+| 1  | Joe   | 70000  | 3         |
+| 2  | Henry | 80000  | 4         |
+| 3  | Sam   | 60000  | Null      |
+| 4  | Max   | 90000  | Null      |
++----+-------+--------+-----------+
+
+select e1.name as employee from employee e1
+join employee e2 on e2.id =e1.managerId
+and e1.salary>e2.salary
+
+
+182. Duplicate Emails:
+------------------------
+Person table:
++----+---------+
+| id | email   |
++----+---------+
+| 1  | a@b.com |
+| 2  | c@d.com |
+| 3  | a@b.com |
++----+---------+
+
+
+select email as Email from (select email,count(email) as total from person group by email)
+person where total>1;
+
+or
+
+
+select email as Email from person group by email having count(email)>1;
+
+
+183. Customers Who Never Order
+-----------------------------
+
+Customers table:
++----+-------+
+| id | name  |
++----+-------+
+| 1  | Joe   |
+| 2  | Henry |
+| 3  | Sam   |
+| 4  | Max   |
++----+-------+
+
+Orders table:
++----+------------+
+| id | customerId |
++----+------------+
+| 1  | 3          |
+| 2  | 1          |
++----+------------+
+
+select c.name as Customers 
+from Customers c
+left join Orders o
+on o.customerId = c.id
+where customerId is null
+
+or
+
+select name as Customers from Customers where id not in (select customerId from Orders);
+
+
+184. Department Highest Salary:
+===============================
+Employee table:
++----+-------+--------+--------------+
+| id | name  | salary | departmentId |
++----+-------+--------+--------------+
+| 1  | Joe   | 70000  | 1            |
+| 2  | Jim   | 90000  | 1            |
+| 3  | Henry | 80000  | 2            |
+| 4  | Sam   | 60000  | 2            |
+| 5  | Max   | 90000  | 1            |
++----+-------+--------+--------------+
+Department table:
++----+-------+
+| id | name  |
++----+-------+
+| 1  | IT    |
+| 2  | Sales |
++----+-------+
+
+select  d.name as Department,e.name as Employee ,e.salary
+from Employee e
+join Department d
+on d.Id = e.departmentId
+where (departmentId,salary) in (
+select departmentId,max(salary) from employee group by departmentId)

@@ -1,0 +1,91 @@
+Create table :
+==============
+create table course(
+course_id int auto_increment,
+name varchar(20) not null,
+months decimal(3,1) not null,
+fee int not null,
+insert_date timestamp default now(),
+Updated_date timestamp default now() on update now(),
+primary key(course_id)
+);
+
+seed data:
+-------------
+insert into course(name,months,fee) values('big data',6.80,50000),
+('web development',5.20,40000),
+('data science',12.00,100000),
+('devops',4.40,30000);
+
+
+create Student table (child table):
+---------------------------------
+
+create table if not exists student (
+id int auto_increment,
+fname varchar(20) not null,
+mname varchar(20),
+lname varchar(20)not null,
+email varchar(20) not null,
+phone varchar(10) not null,
+alternate_phone varchar(10),
+enrollment_date timestamp not null,
+course_id int not null default 1,
+yoe int not null,
+company varchar(20),
+batch_date varchar(20) not null,
+soj varchar(20) not null,
+location varchar(20) not null,
+primary key(id),
+unique key(email),
+foreign key(course_id ) references course(course_id)
+);
+
+
+Seed data (intial insert data):
+===============================
+
+insert into student (fname,lname,email,phone,course_id,yoe,
+company,batch_date,soj,location) values 
+('Sandeep','Nookala','sandeep@gmail.com','7989681270',1,5,'tcs','11-11-21','youtube','Bangalore'),
+('Satish','Nookala','satish@gmail.com','9293111539',2,10,'synecron','31-01-22','google','Hyderabad'),
+('Krishna','Nookala','krishna@gmail.com','9059741955',4,20,'google','12-08-19','facebook','Narsampet'),
+('sonu','avula','sonu@gmail.com','8989681280',3,1,'IBM','12-01-23','instagram','Hyderabad'),
+('Padma','taddu','padma@gmail.com','9979897990',4,5,'microsoft','01-01-20','referal','Narsampet'),
+('anusha','jangili','anusha@gamil.com','6878581270',2,2,'facebook','17-03-23','referal','Hyderabad');
+
+insert into student (fname,lname,email,phone,course_id,yoe,
+company,batch_date,soj,location) values ('teju','Nookala=','teju@gmail.com','8889681170',6,1,'tcs','11-11-21','facebook','tirupathi');
+
+
+
+create employee table:
+---------------------------------
+
+create table if not exists employee (
+fname varchar(20) not null,
+lname varchar(20)not null,
+email varchar(20) not null,
+phone varchar(10) not null,
+salary int not null,
+yoe int not null,
+company varchar(20),
+soj varchar(20) not null,
+location varchar(20) not null
+);
+
+
+Seed data (intial insert data):
+===============================
+
+
+insert into employee (fname,lname,email,phone,salary,yoe,
+company,soj,location) values 
+('Sandeep','Nookala','sandeep@gmail.com','7989681270',10000,5,'tcs','instagram','Bangalore'),
+('Satish','Nookala','satish@gmail.com','9293111539',10000,10,'synecron','facebook','Hyderabad'),
+('Krishna','Nookala','krishna@gmail.com','9059741955',40000,20,'google','facebook','Narsampet'),
+('sonu','avula','sonu@gmail.com','8989681280',30000,1,'IBM','instagram','Hyderabad'),
+('Padma','taddu','padma@gmail.com','9979897990',40000,5,'microsoft','Linkdin','Narsampet'),
+('anusha','jangili','anusha@gamil.com','6878581270',200000,2,'facebook','Linkdin','Hyderabad');
+
+

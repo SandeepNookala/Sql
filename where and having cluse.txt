@@ -1,0 +1,14 @@
+
+having:
+=======
+select soj,count(*) as total from student group by soj having total>1;
+
+where:
+=======
+select soj,count(*) as total from student where soj = 'referal'group by soj;
+
+
+where and having:
+=================
+
+select location,count(*) as total from student where yoe >= 5 group by location having total>=1;
