@@ -1,0 +1,19 @@
+
+Case:
+=====
+
+select course_id,name,months,fee,
+case
+when months>6 then 'masters'
+when months>4 then 'diploma'
+else 'school'
+end as course_type
+from course;
+
+
+select id,fname,lname,company,
+case
+when company in ('google','microsoft','facebook') then 'product Base'
+else 'service based'
+end as company_type 
+from student;

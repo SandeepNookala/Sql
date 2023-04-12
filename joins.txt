@@ -26,6 +26,7 @@ on s.course_id = c.course_id
 ;
 
 
+
 2.left outer join:
 ============
 select s.fname,s.lname,c.course_id,c.name,c.months

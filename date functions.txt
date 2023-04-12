@@ -1,0 +1,99 @@
+
+DATETIME  format:  YYYY-MM-DD HH:MI: SS   Returns the current date. 
+TIMESTAMP format:  YYYY-MM-DD HH:MI: SS   Returns the current time.
+
+----------------------
+present date and time:
+----------------------
+select now
+
+select curdate()
+
+select curtime()
+
+
+
+YEAR 	  format:  YYYY or YY             Extracts the year part of a date  
+DAY       format:  D                      Extracts the day part of a date  
+MONTH     format:  M                      Extracts the month part of a date  
+DATE	  format:  YYYY-MM-DD             Extracts the date part of a date  
+
+
+------------------------------------------ 
+ftech the day,month,year from date column:
+------------------------------------------ 
+
+select dept_id,day(doj) day from dept
+
+select dept_id,month(doj) month from dept
+
+select dept_id,year(doj) year from dept 
+
+select dept_id,date(doj) date from dept
+
+
+-------------------------------------------------
+Extract() ---- day/month/year/seconds from date:
+-------------------------------------------------
+
+select dept_id,extract( year from doj) year,extract(month from doj) month ,
+extract(day from doj)day from dept ;
+
+---------------------------------------------------------
+DATE_ADD() -----Adds a specified time interval to a date:
+---------------------------------------------------------
+
+select dept_id,date_add(doj ,interval 1 year ) year , date_add(doj,interval 1 month) month ,
+date_add(doj, interval 4 hour) hour from dept;
+
+
+
+----------------------------------------------------------------
+DATE_SUB() ------Subtracts a specified time interval from a date:
+-----------------------------------------------------------------
+
+select dept_id,date_sub(doj,interval 1 year)year,date_sub(doj,interval 1 month) month,
+date_sub(doj,interval 4 hour) hour from dept;
+
+------------------------------------------------------------
+DATEDIFF()-----Returns the number of days between two dates:
+------------------------------------------------------------
+
+
+select datediff('2021-11-11','1977-09-09') as diff
+
+
+
+
+
+%a-Abbreviated weekday name (Sun-Sat)
+%b-Abbreviated month name (Jan-Dec)
+%c-Month, numeric (0-12)
+%D-Day of month with English suffix (0th, 1st, 2nd, 3rd)
+%d-Day of the month, numeric (00-31)
+%e-Day of the month, numeric (0-31)
+%f-Microseconds (000000-999999)
+%H-Hour (00-23)
+%h-Hour (01-12)
+%I-Hour (01-12)
+%i-Minutes, numeric (00-59)
+%j-Day of the year (001-366)
+%k-Hour (0-23)
+%l-Hour (1-12)
+%M-Month name (January-December)
+%m-Month, numeric (00-12)
+%p-AM or PM
+%r-Time, 12-hour (hh:mm: ss followed by AM or PM)
+%S-Seconds (00-59)
+%s-Seconds (00-59)
+%T-Time, 24-hour (hh:mm: ss)
+%U-Week (00-53) where Sunday is the first day of the week
+%u-Week (00-53) where Monday is the first day of the week
+%V-Week (01-53) where Sunday is the first day of the week, used with %X
+%v-Week (01-53) where Monday is the first day of the week, used with %x
+%W-Weekday name (Sunday-Saturday)
+%w-Day of the week (0=Sunday, 6=Saturday)
+%X-Year for the week where Sunday is the first day of the week, four digits, used with %V
+%x-Year for the week where Monday is the first day of the week, four digits, used with %v
+%Y-Year, numeric, four digits
+%y-Year, numeric, two digits
