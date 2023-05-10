@@ -1,11 +1,13 @@
 
+select * from emp;
+select * from employee;
+
+
 =====================================================
-1.Update date of joining to '11-11-1994' for emp id ?
+1.Update yoe to 10 for employee name padma ?
 =====================================================
 
 update employee set yoe= 10 where fname ='padma' ;
-
-update employee set fname = 'Krishna Murthy' where emp_id = 3;
 
 ======================================================
 2. select all employee names where yoe greater then 2?
@@ -13,13 +15,11 @@ update employee set fname = 'Krishna Murthy' where emp_id = 3;
 
 select * from employee where yoe >2 ;
 
-
 ==============================================================
 3. select all employee names where salary between 40000 to 80000 ?
 ==============================================================
 
-select * from employee where salary between 30000 and 100000 ;
-
+select * from employee where salary between 40000 and 80000;
 
 ============================================
 4. select all employee name starts with 's' ?
@@ -27,69 +27,60 @@ select * from employee where salary between 30000 and 100000 ;
 
 select * from employee where fname like 's%';
 
-
 ===================================
 5. display full name of employee ?
 ===================================
 
-select concat(fname,'_',lname) from employee 
-
+select concat(fname,'_',lname) from employee;
 
 ======================================================
-6.find employee first name ends with 'p' had only 8 letters?
+6.find employees first name who names ends  'p' had only 8 letters?
 ======================================================
 
-select * from employee where fname like '______p'
-
+select * from employee where fname like '______p';
 
 ===================================================================
-7.display all employee name by excluding first names sandeep,satish ?
+7.display all employee names by excluding first names sandeep,satish ?
 ====================================================================
 
-select * from employee where fname in ('sandeep','satish');
-
+select * from employee where fname not in ('sandeep','satish');
 
 ========================
 8.display current date ?
 ========================
 
-select sysdate(),current_date(),current_timestamp();
+select sysdate(),now(),current_date(),current_timestamp();
+
+select lastday(now())
 
 ===================================================================
 9.last days and first days of previous month and current month?
 ====================================================================
 
-select last_day(now() - interval 1 month)   -------------- Last day of Previous Month
+select lastday(now()) ;                        ----------- this month last day
 
-select last_day(now() - interval 2 month) + interval 1 day ------ first day of last month
+select lastday(now() -interval 1 month);       ----------- pervious month last day
 
-select last_day(now() - interval 1 month)+ interval 1 day  -------------- first day of current Month
+select lastday(now() - interval 1 month) + interval 1 day;   ---------- this month first day
 
-select last_day(now()) ------------Last day of current Month
-
+select lastday(now()-interval 2 month) + interval 1 day ;     --------- last month first day
 
 ===================================================================
-10.differnce of current year ,month days and pervious year,current year ,month days?
+10.pervious and current year,month,day?
 ====================================================================
 
 select day(now() - interval 1 day)
 
-select year(now() - interval 1 year)
-
 select month(now() - interval 1 month)
 
+select year(now() - interval 1 year)
 
 ===================================
 11.ftech year,month,day from employee?
 ===================================
 
-select year(doj),month(doj),day(doj) from employee;
+select year(insert_date),month(insert_date),day(insert_date) from employee;
 
-============================================================================
-12.ftech employee detail from table who joined in year 1970 and before 2000?
-============================================================================
-
-select * from employee where doj between '2000-01-01' and '2010-01-01' ;
 
 ==============================================================
 13. update employee name by removing leading and trailing space ?
@@ -101,13 +92,11 @@ update employee set fname = ltrim(rtrim(fname));
 15.ftech odd and even rows from table:
 ======================================
 
-select * from employee where emp_id %2 = 0;    
-select * from employee where mod(emp_id ,2) = 0 ;
+select * from employee where mod (emp_id,2) = 0 ;
+select * from employee where mod(emp_id,2) != 0 ;
 
-
-select * from employee where emp_id%2 != 0;
-select * from employee where mod(emp_id ,2) != 0 ;
-
+select * from employee where emp_id % 2 = 0 ;
+select * from employee where emp_id % 2 != 0 ;
 
 ==============================================================
 16.create new table from another table with same data and structure:
@@ -124,18 +113,16 @@ create table emp_no_data  as select * from employee where 1 = 0;
 select * from emp_no_data ;
 
 ===============================================
-18.ftech employee first name replace  a with @ :
+18.ftech employee first name replace alphabat 'a' with @ :
 ===============================================
 
 select fname,replace(fname,'a','@') from employee;
 
-select replace(NAME,'s','h') from employee;
-
 ===============================================
-19.ftech '@' position from email column?
+19.ftech '@' position from string column?
 ===============================================
 
-select instr(email,'@') as position from employee;
+select instr(email,'@')as position from employee;
 
 =================================
 20.ftech domain name from gmail ?
@@ -143,48 +130,48 @@ select instr(email,'@') as position from employee;
 
 select substr(email, instr(email,'@')+1) as domain_name from employee;
 
-
 ===========================================
 21 .ftech 3 highest salaries from employee?
 ===========================================
 
-select fname,salary from (select fname,salary,row_number() over(order by salary desc) as rownum from employee)
-employee where rownum <4;
+select * from (select *,row_number() over(order by salary desc) rn from employee)employee where rn<4;
 
-select distinct salary from employee order by salary desc limit 3
-
+select * from employee order by salary desc limit 3
 
 ===========================================
 21 .ftech 3rd highest salary from employee?
 ===========================================
 
-select distinct salary from employee order by salary desc limit 1 offset 2 ;
+select * from (select *,row_number() over(order by salary desc) rn from employee )employee
+where rn =3;
 
+select * from employee order by salary desc limit 1 offset 2;
 
-select fname,salary from(select fname,salary,dense_rank() over(order by salary desc) 
-as denserank from employee) employee where denserank =3 ;
 
 =====================================================================
-22. How to find the employee with second MAX Salary using a SQL query?
+22. How to find the employee with second MAX Salary?
 =====================================================================
 
 select * from employee order by salary desc limit 1 offset 1
 
-===========================================
-23.find first and last employee from table?
-===========================================
-
-select * from employee  where emp_id = (select max(emp_id) from employee)
-
-select * from employee  where emp_id = (select max(emp_id) from employee)
+select * from (select *,row_number() over(order by salary desc) rn from employee )employee
+where rn =2;
 
 ===========================================
-24.find max and min salaries employee from table?
+23.find first and last employee details from table?
 ===========================================
 
-select * from employee where emp_id = (select max(emp_id) from employee) ;
+select * from employee where emp_id = (select min(emp_id) from employee)
 
-select * from employee where emp_id = ( select min(emp_id) from employee);
+select * from employee where emp_id = (select max(emp_id) from employee)
+
+=============================================================
+24.find max and min salaries of employee details  from table?
+=============================================================
+
+select * from employee where salary = (select max(salary) from employee)
+
+select * from employee where salary = (select min(salary) from employee)
 
 ===================================================
 25. list the ways to get count of records in table?
@@ -192,108 +179,71 @@ select * from employee where emp_id = ( select min(emp_id) from employee);
 
 select count(*) from employee   --> count of all records from table
 
-select count(soj) from employee ---> count of slected column records and don't consider null column records
+select count(emp_id) from employee ---> count of slected column records and dont consider null column records
 
 
 ========================================================
 25. dept wise count of employee sort by ascending order?
 ========================================================
 
-select dept,count(*) as count from employee group by dept order by count ;
+select dept_no,count(*)as count from employee group by dept_no order by count;
 
-===========================================
+==================================================
 25. department wise total salaries ascending order?
-===========================================
+===================================================
 
-select dept,sum(salary)as salary from employee group by dept order by salary desc ; 
+select dept_no,sum(salary) as salary from employee group by dept_no order by salary;
 
-
-==============================================================
+=======================================
 26.ftech max salary in each department?
-==============================================================
+========================================
 
-select dept,max(salary) from employee group by dept
-
-
-==============================================================
-27.ftech employees details earning max salary in his department?
-==============================================================
-
-select * from employee e1
-join
-(select dept ,max(salary) as salary from employee  group by dept) e2
-on e1.dept = e2.dept
-and e1.salary = e2.salary
+select dept_no,max(salary) from employee group by dept_no ;
 
 
 ==================================================
-28.ftech department who has more than 2 employees?
+28.ftech department who has more than 1 employees?
 ==================================================
 
-select dept,count(*) as count from employee group by dept having count>2;
-
+select dept_no,count(*) as count from employee group by dept_no having count >1 ;
 
 ==================================================
 29.ftech 50 % records from employee table?
 ==================================================
-
+ntile(3)
 100% - 1 part
 50%  - divides table into 2 equal parts
 
-select * from (select emp_id,fname, ntile(3) over(order by emp_id) nt from employee) employee
-where nt = 1
+# first 50 records 
+select * from (select *,ntile(2) over(order by emp_id) rn from employee) employee where rn =1 ;
 
-
-=====================================
-29.find employees details who had no manager?
-=====================================
-select * from employee e
-join dept d
-on e.emp_id = d.dept_id
-where manger_id is null
+# last 50 records 
+select * from (select *,ntile(2) over(order by emp_id) nt from employee ) employee where nt=2;  
 
 ==============================================================
 30.ftech UNIQUE records from a table using a SQL Query?
 ==============================================================
 
-using group by :
------------------
-select employee_id,name,salary from employee group by employee_id,name,salary;
+select emp_id,fname,salary from employee group by emp_id,fname,salary;
 
+==============================================================
+show only unique records in dup_emp table using row_number()?
+==============================================================
 
-ROW_NUMBER Analytic Function:
------------------------------
-
-select * from (select employee_ID,NAME,SALARY,row_number()
-over(partition by employee_ID,NAME,SALARY order by employee_ID) as ROWNUMBER 
-from employee) employee where ROWNUMBER=1;
+select * from (select *,row_number() over(partition by fname,salary order by fname,salary) rn from dup_emp)
+dup_emp where rn =1 order by emp_id ;
 
 ===========================================================
 31. find the no.of records which are repeted more than once?
 ===========================================================
-select employee_id,name,salary,count(*) as Number from employee group by employee_id,name,salary having Number>1;
 
+select fname,salary,count(*) as count from dup_emp group by fname,salary having count >1;
 
-=================================================================
-32.How to delete DUPLICATE records from a table using a SQL Query?
-=================================================================
-join:
------
-select * from employee e
-join
-employee e1
-on e.fname = e1.fname
-and e.salary = e1.salary
-and e.company = e.company
-and e.emp_id <  e1.emp_id
+===========================================================
+show only duplicate records in table ?
+===========================================================
 
-with cte:
----------
-
-WITH dup_cte AS (select employee_id,name,salary,row_number() 
-over(partition by employee_id,name,salary 
-order by employee_id,name,salary) as ROWNUM from employee) 
-delete from dup_cte where ROWNUM > 1;
+select * from (select *,row_number() over(partition by fname,salary order by fname,salary) rn from dup_emp)dup_emp where rn >1;
 
 ===========================================================
 33.How to read TOP 5 records from a table using a SQL query?
@@ -314,9 +264,10 @@ select * from employee where salary between 10000 and 50000;
 
 select * from employee where salary>10000 and salary<50000;
 
-===========================
+============================
 46. find  nth higest salary?
-===========================
+============================
+
 select * from (select fname,lname,salary,dense_rank() over(order by salary desc ) as 
 salary_rank from employee) employee where salary_rank = n
 
@@ -336,7 +287,7 @@ select replace(email,'@','_') from employee
 49.count same number of charector in string?
 ============================================
 
-select fname,replace(fname,'a',''),length(fname)- length (replace(fname,'a','')) as char_count from employee;
+select fname,replace(fname,'a',''),length(fname)-length(replace(fname,'a',''))as char_count from employee;
 
 ================================
 50.common records from two table?
@@ -344,50 +295,83 @@ select fname,replace(fname,'a',''),length(fname)- length (replace(fname,'a',''))
 
 select * from employee
 intersect
-select * from new_emp;
+select * from  employee;
 
 =======================
 51.concate two columns?
 =======================
 
-select *,concat(fname,lname) from employee 
-
-
+select *,concat(fname,lname) as full_name from employee 
 
 ===============
 Date Functions:
-===============
-
-
-============================================
-52.Query to format order_date as day,month ?
-============================================
 
 %a-Abbreviated weekday name (Sun-Sat)
 %b-Abbreviated month name (Jan-Dec)
 %W-Weekday name (Sunday-Saturday)
 
+============================================
+52.Query to format order_date as day,month ?
+============================================
 
-select *,date_format(order_date,'%a-%b-%y') from order_details
+select * from customer_orders;
+
+select *,date_format(order_date,'%a-%b-%y') from customer_orders
 
 ===============================================================================
 53. Query to get the estimated delivery date after 15 days from the order date?
 ===============================================================================
 
-select *,date_add(order_date,interval 15 day) as Delivery_date from order_details ;
+select *,date_add(order_date,interval 15 day) as Delivery_date from customer_orders;
 
+==============================================================
+54.Query to get the estimated delivery_date and delivery_day ?
+==============================================================
 
-==========================================
-54.Query to get the estimated delivery day?
-==========================================
-select *,date_format(date_add(order_date,interval 15 day),'%W') as 
-delivery_day from order_details ;
+select *,date_format(date_add(order_date,interval 15 day),'%a-%b-%y') as delievary_date  from customer_orders;
 
+select*,date_format(date_add(order_date,interval 15 day),'%W') as delivary_day from customer_orders;
 
 ===============================================================================
-55. Query to get the order_id and customer name of the persons who are 
-getting their order delivered before  2021-04-23?
+55. Query to get the order_id and customer_id who are 
+getting their order delivered before  2022-01-17?
 ===============================================================================
 
-select order_id,customer_name from order_details
-where date_add(order_date,interval 15 day) < '2021-04-23';
+select * from customer_orders;
+
+select order_id,customer_id from customer_orders where date_add(order_date ,interval 15 day) < '2022-01-17'  ;
+
+================================================================
+find no_of_matches_plyed ,no_of_matches_won,no_of_matches_lose?
+================================================================
+select * from icc_world_cup;
+
+select team_name,count( team_name) as no_of_matches_plyed,sum(win_flag) as no_of_matches_won,(count( team_name) - sum(win_flag) ) as no_of_matches_lose from
+(select team_1 as team_name,case when team_1 = winner then 1 else 0 end as win_flag
+from icc_world_cup
+union all
+select team_2 as team_name ,case when team_2 = winner then 1 else 0 end as win_flag
+from icc_world_cup) A 
+group by team_name ;
+
+===============================================================
+find order_date ,new_customer_count and repeat_customer_count ?
+===============================================================
+select * from customer_orders;
+
+
+with first_visit as(select customer_id, min(order_date) as first_order from customer_orders group by customer_id)
+
+select order_date,
+sum(case when co.order_date=fv.first_order  then 1 else 0 end) as first_visit_flag,
+sum(case when co.order_date!=fv.first_order  then 1 else 0 end) as repeated_visit_flag
+from first_visit fv 
+inner join 
+customer_orders co 
+on fv.customer_id=co.customer_id
+group by order_date;
+
+
+
+
+

@@ -43,7 +43,6 @@ unique key(email),
 foreign key(course_id ) references course(course_id)
 );
 
-
 Seed data (intial insert data):
 -------------------------------
 
