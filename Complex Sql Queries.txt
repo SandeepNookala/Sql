@@ -1,0 +1,29 @@
+================================================================
+find no_of_matches_plyed ,no_of_matches_won,no_of_matches_lose?
+================================================================
+select * from icc_world_cup;
+
+select team_name,count( team_name) as no_of_matches_plyed,sum(win_flag) as no_of_matches_won,(count( team_name) - sum(win_flag) ) as no_of_matches_lose from
+(select team_1 as team_name,case when team_1 = winner then 1 else 0 end as win_flag
+from icc_world_cup
+union all
+select team_2 as team_name ,case when team_2 = winner then 1 else 0 end as win_flag
+from icc_world_cup) A 
+group by team_name ;
+
+===============================================================
+find order_date ,new_customer_count and repeat_customer_count ?
+===============================================================
+select * from customer_orders;
+
+
+with first_visit as(select customer_id, min(order_date) as first_order from customer_orders group by customer_id)
+
+select order_date,
+sum(case when co.order_date=fv.first_order  then 1 else 0 end) as first_visit_flag,
+sum(case when co.order_date!=fv.first_order  then 1 else 0 end) as repeated_visit_flag
+from first_visit fv 
+inner join 
+customer_orders co 
+on fv.customer_id=co.customer_id
+group by order_date;
