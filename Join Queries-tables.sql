@@ -47,26 +47,38 @@ create table Ball2 (id int);
 insert into Ball2 values(10),(10),(30),(NULL),(NULL);
 drop table Ball2;
 
-create table s ( id int);
-insert into s values(10),(10),(10),(20),(40),(NULL);
-drop table s;
+create table Apple3 ( id int);
+insert into Apple3 values(10),(10),(10),(20),(40),(NULL);
+drop table Apple3;
 
-create table s1 ( id int);
-insert into s1 values(10),(10),(10),(20),(40),(NULL);
-drop table s1;
+create table Ball3 ( id int);
+insert into Ball3 values(10),(10),(10),(20),(40),(NULL);
+drop table Ball3;
 
 ==================================================================
 calculate no.of output rows in inner join ,left join ,right join ?
 ==================================================================
-create table emp(Eno int ,dno int);
+create table student(Eno int ,dno int);
 
-insert into emp(Eno,dno) values(101,10),(102,10),(103,Null)
+insert into student(Eno,dno) values(101,10),(102,10),(103,Null);
 
-create table dept1(Dno int, loc varchar(20));
+create table location(Dno int, loc varchar(20));
 
-insert into dept1(Dno,loc) values(10,'hyd'),(Null,'hyd');
+insert into location(Dno,loc) values(10,'hyd'),(Null,'hyd');
+
+==================================================================
+
+CREATE TABLE products(
+product_id int,
+product_name varchar(20),
+unit_price int
+)
 
 
-drop table a
-
+CREATE TABLE sales(
+sl_no int,
+product_id int,
+qty int,
+year int
+)
 

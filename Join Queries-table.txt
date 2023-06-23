@@ -65,3 +65,20 @@ insert into student(Eno,dno) values(101,10),(102,10),(103,Null);
 create table location(Dno int, loc varchar(20));
 
 insert into location(Dno,loc) values(10,'hyd'),(Null,'hyd');
+
+==================================================================
+
+CREATE TABLE products(
+product_id int,
+product_name varchar(20),
+unit_price int
+)
+
+
+CREATE TABLE sales(
+sl_no int,
+product_id int,
+qty int,
+year int
+)
+

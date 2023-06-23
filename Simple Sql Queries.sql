@@ -48,9 +48,9 @@ select * from employee where fname like '______p';
 
 select * from employee where fname like 's%'
 
-=================================================
+================================================
 8.FIRST_NAME upper case fname ,lower case lname?
-=================================================
+================================================
 
 select upper(fname),lower(lname) from employee;
 

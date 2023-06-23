@@ -48,9 +48,9 @@ select * from employee where fname like '______p';
 
 select * from employee where fname like 's%'
 
-=================================================
+================================================
 8.FIRST_NAME upper case fname ,lower case lname?
-=================================================
+================================================
 
 select upper(fname),lower(lname) from employee;
 
@@ -202,9 +202,9 @@ select * from (select *, ntile(2) over(order by id) rn from employee )employee w
 
 select * from (select *, ntile(2) over(order by id) rn from employee )employee where rn =2
 
-============================================================
+=======================================================
 30.ftech UNIQUE records from dup_employee using a SQL Query?
-============================================================
+=======================================================
 
 select fname,email,salary,yoe,company from dup_employee group by fname,email,salary,yoe,company
 
@@ -212,51 +212,48 @@ select fname,email,salary,yoe,company from dup_employee group by fname,email,sal
 31.ftech only unique records from dup_employee table using row_number?
 =====================================================================
 
-select * from (select *,row_number() over(partition by fname,salary order by fname,salary) rn from dup_emp)
-dup_emp where rn =1 order by emp_id ;
+select * from (select *,row_number() over(partition by fname,email,company order by fname,email,company) rn from employee) employee where rn = 1 order by id 
 
 ===================================================================
 32.delete duplicate records in dup_employee table using row_number?
 ===================================================================
 
-select * from dup_emp;
+delete from dup_employee where id in ( 
+select id from (select id,row_number() over(partition by fname,email,company order by fname,email,company) rn from dup_employee) dup_employee where rn > 1 order by id 
+)
 
-delete from dup_emp where emp_id in (
-select emp_id from (select emp_id,row_number() over(partition by fname,company order by emp_id) rn from dup_emp ) 
-dup_emp where rn >1 ); 
+select * from dup_employee
 
 ========================================
 33.create new table with unique records?
 ========================================
+create table employee_uniq as  select fname,lname,email,phone,salary,yoe,company,dept_no from employee group by fname,lname,email,phone,salary,yoe,company,dept_no
 
-create table employee_uniq as select fname,lname,email,phone,salary,yoe,company,dept_no from employee group by fname,lname,email,phone,salary,yoe,company,dept_no;
-select * from employee_uniq;
-
+select * from employee_uniq
 
 ========================================================
 34.delete duplicate records in employee table using join?
 ========================================================
-select * from employee;
+select * from dup_employee
 
 delete e1 
-from employee e1
-inner join 
-employee e2
-on e1.id <e2.id
+from dup_employee e1
+join
+dup_employee e2
+on e1.id >e2.id
 and e1.fname = e2.fname
 
-============================================================================
-35. ftech only no.of records which are repeted more than once using group by ?
-============================================================================
+===========================================================
+35. find the no.of records which are repeted more than once?
+===========================================================
 
-select fname,salary,count(*) as count from dup_emp group by fname,salary having count >1;
+select fname,count(*) as count from dup_employee group by fname having count >1 
 
 ==============================================================================
 36. ftech only no.of records which are repeted more than once using row number?
 ==============================================================================
 
-select * from (select *,row_number() over(partition by fname,salary order by fname,salary) rn from dup_emp)dup_emp where rn >1;
-
+select * from (select *,row_number() over(partition by fname,salary order by fname,salary) rn from dup_employee)dup_employee where rn >1;
 
 =================================
 37.common records from two table?
@@ -264,6 +261,7 @@ select * from (select *,row_number() over(partition by fname,salary order by fna
 
 select d.* from dup_employee d 
 where d.id in (select e.id from employee e)
+
 
 ===============
 Date Functions:
@@ -290,7 +288,6 @@ select *,day(order_date),month(order_date),year(order_date) from customer_orders
 
 select *,day(order_date - interval 1 day) ,month(order_date - interval 1 month),year(order_date - interval 1 year) from customer_orders
 
-
 ============================================
 41.Query to format order_date as day,month ?
 ============================================
@@ -301,23 +298,21 @@ select *,date_format(order_date,'%a-%b-%y') from customer_orders
 42. Query to get the estimated delivery date after 15 days from the order date?
 ===============================================================================
 
-select *,date_add(order_date,interval 15 day) as Delivery_date from customer_orders;
+select *,date_add(order_date, interval 15 day) delivery_date from customer_orders
 
 ==============================================================
 43.Query to get the estimated delivery_date and delivery_day ?
 ==============================================================
 
-select *,date_format(date_add(order_date,interval 15 day),'%a-%b-%y') as delievary_date  from customer_orders;
+select *, date_format (date_add(order_date,interval 15 day) , '%W') Delivery_Day from customer_orders
 
-select*,date_format(date_add(order_date,interval 15 day),'%W') as delivary_day from customer_orders;
+select * , date_format(date_add(order_date,interval 15 day),'%a-%b-%y') Delivery_Date from customer_orders
 
 =======================================================================================================
 44. Query to get the order_id and customer_id who are getting their order delivered before  2022-01-17?
 =======================================================================================================
 
-select * from customer_orders;
-
-select order_id,customer_id from customer_orders where date_add(order_date ,interval 15 day) < '2022-01-17' ;
+select order_id,customer_id from customer_orders where date_add(order_date,interval 15 day) < '2022-01-17' 
 
 
 
