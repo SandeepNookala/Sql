@@ -1,28 +1,60 @@
-============================================
-1.Update yoe to 10 for employee name padma ?
-============================================
+===========================
+1.Update employee Details ?
+===========================
 
 select * from employee;
 
 update employee set yoe = 10 where fname = 'padma';
 
+update employee set company = 'Not Working' where fname = 'sandeep'
+
+
+
 ================================================================
-2. update employee name by removing leading and trailing space ?
+2. update employee names by removing leading and trailing space ?
 ================================================================
 
-update demployee set fname = ltrim(rtrim(fname))
+update employee set fname = ltrim(rtrim(fname))
+
+update employee set salary = salary+100 
+
+update employee set yoe = yoe+1
+
+
+==============================================
+count employee count of individual department?
+==============================================
+
+select dept_no,count(*) from emplyoee group by dept_no
+
+
+
+========================================================
+Update department employees count from employee table?
+========================================================
+select * from department;
+
+update department d,
+(select dept_no,count(*) emp_count from employee group by dept_no) e
+set d.emp_count = e.emp_count
+where d.dept_no = e.dept_no
+
 
 ======================================================
-2. select all employee names where yoe greater then 2?
+2. select all employee names where yoe greater then 5?
 ======================================================
 
-select * from employee where yoe>2;
+select * from employee where yoe>5;
+
+
 
 =================================================================
-3. select all employee names where salary between 40000 to 80000 ?
+3. select all employee names where salary between 40000 to 100000 ?
 =================================================================
 
-select * from employee where salary between 40000 and 80000 ;
+select * from employee where salary between 40000 and 100000 ;
+
+
 
 ======================================================================
 4.display all employee names by excluding first names sandeep,satish ?
@@ -30,17 +62,25 @@ select * from employee where salary between 40000 and 80000 ;
 
 select * from employee where fname not in ('sandeep','satish');
 
+
+
 ===================================
 5. display full name of employee ?
 ===================================
 
 select concat(fname,'_',lname) from employee 
 
+
+
 ===================================================================
-6.find employees first name who names ends  'p' had only 8 letters?
+6.find employees first name who names ends  'p' had only 8 letters, starts with s had only 6 letters
 ===================================================================
 
 select * from employee where fname like '______p';
+
+select * from employee where fname like 'S_____'
+
+
 
 ============================================
 7. select all employee name starts with 's' ?
@@ -48,11 +88,15 @@ select * from employee where fname like '______p';
 
 select * from employee where fname like 's%'
 
+
+
 ================================================
 8.FIRST_NAME upper case fname ,lower case lname?
 ================================================
 
 select upper(fname),lower(lname) from employee;
+
+
 
 =================================
 9.Replace @ with underScore '_' ?
@@ -60,11 +104,15 @@ select upper(fname),lower(lname) from employee;
 
 select replace (email,'@','_') from employee;
 
+
+
 =============================================
 10.count number of same charectors in string?
 =============================================
 
 select fname,length(fname),replace(fname,'e',''),length(fname)-length(replace(fname,'e','')) as count from employee;
+
+
 
 =========================================
 11.ftech '@' position from string column?
@@ -72,11 +120,15 @@ select fname,length(fname),replace(fname,'e',''),length(fname)-length(replace(fn
 
 select instr(email,'@')as position from employee;
 
+
+
 =================================
 12.ftech domain name from gmail ?
 =================================
 
 select substr(email, instr(email,'@')+1) as domain_name from employee;
+
+
 
 ===================================================
 13. list the ways to get count of records in table?
@@ -86,11 +138,15 @@ select count(*) from employee
 
 select count(id) from employee
 
+
+
 ========================================================
 14. dept wise count of employee sort by ascending order?
 ========================================================
 
 select dept_no,count(*) as count from employee group by dept_no order by count 
+
+
 
 ======================================
 15.ftech odd and even rows from table?
@@ -102,6 +158,8 @@ select * from employee where mod(id,2) != 0
 select * from employee where id%2 = 0
 select * from employee where id%2 != 0
 
+
+
 ====================================================================
 16.create new table from another table with same data and structure?
 ====================================================================
@@ -109,6 +167,8 @@ select * from employee where id%2 != 0
 create table employee_data as select * from employee
 
 select * from employee_data ;
+
+
 
 ============================================================================
 17.create new table from another table without data and only with structure?
@@ -119,11 +179,15 @@ create table employee_nodata as select * from employee where 1=0 ;
 
 select * from employee_nodata
 
+
+
 ===========================================================
 18.How to read TOP 5 records from a table using a SQL query?
 ===========================================================
 
 select * from employee order by id limit 5
+
+
 
 ============================================================
 19.How to read last 5 records from a table using a SQL query?
@@ -131,12 +195,16 @@ select * from employee order by id limit 5
 
 select * from employee order by id desc limit 5 
 
+
+
 ============================
 20. find  nth higest salary?
 ============================
 
 select * from (select *,row_number() over(order by salary desc) salary_rank from employee ) employee where salary_rank = n ;
 
+
+ 
 =================================================
 21 .ftech 3rd highest salary from employee table?
 =================================================
@@ -145,13 +213,17 @@ select * from (select *,row_number() over(order by salary desc) salary_rank from
 
 select * from employee order by salary desc limit 1 offset 2 ;
 
+
+
 =================================================
 22 .ftech 5 highest salaries from employee table?
 =================================================
 
-select * from (select *,row_number() over(order by salary desc) salary_rank from employee ) employee where salary_rank < 5 ;
+select * from (select *,row_number() over(order by salary desc) salary_rank from employee ) employee where salary_rank <= 5 ;
 
 select * from employee order by salary desc limit 5
+
+
 
 ======================================================
 23. ftech employees details having 2nd highest Salary?
@@ -162,13 +234,17 @@ select * from employee order by salary desc limit 1 offset 1
 select * from (select *,row_number() over(order by salary desc) rn from employee )employee
 where rn =2;
 
-==============================================================
-24.find max and min salaries of employees from  employee table?
-==============================================================
+
+
+============================================================================
+24.find max and min salaries of employ and his details from  employee table?
+============================================================================
 
 select * from employee where salary = (select max(salary) from employee)
 
 select * from employee where salary = (select min(salary) from employee)
+
+
 
 ==================================================
 25. department wise total salaries ascending order?
@@ -176,11 +252,16 @@ select * from employee where salary = (select min(salary) from employee)
 
 select dept_no,sum(salary) as salary from employee group by dept_no order by salary;
 
+
+
+
 =======================================
 26.ftech max salary in each department?
 =======================================
 
 select dept_no,max(salary) salary from employee group by dept_no ;
+
+
 
 ===================================================
 27.find first and last employee details from table?
