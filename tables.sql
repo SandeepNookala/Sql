@@ -1,67 +1,33 @@
-
-===============
-Employee table:
-===============
-drop table employee
-create table if not exists employee (
-id int auto_increment,
-fname varchar(20) not null,
-lname varchar(20)not null,
-email varchar(20) not null,
-phone varchar(10) not null,
-salary int not null,
-yoe int not null,
-company varchar(20),
-dept_no int not null,
-hire_date date,
-primary key(id)
-);
-
-==========
-seed data:
-==========
-
-insert into employee (fname,lname,email,phone,salary,yoe,
-company,dept_no,hire_date) 
-values 
-('Sandeep','Nookala','sandeep@gmail.com','7989681270',100000,5,'tcs',1,'1994-11-11'),
-('Satish','Nookala','satish@gmail.com','9293111539',1000000,10,'synecron',1,'1994-11-11'),
-('Krishna','Nookala','krishna@gmail.com','9059741955',40000,20,'google',2,'1993-09-11'),
-('sweety','gattu','sweety@gmail.com','8989681280',3000,1,'google',5,'1993-08-11'),
-('Padma','taddu','padma@gmail.com','9979897990',40000,5,'microsoft',3,'1993-07-11'),
-('anusha','jangili','anusha@gamil.com','6878581270',20000,2,'microsoft',5,'1992-06-11') ,
-('akshitha','avula','akshitha@gamil.com','5878581270',200000,4,'microsoft',2,'1992-05-11');
-
-
+use test
 ==================
 Department table:
 ==================
 drop table department
 truncate department
 create table department(
-sno int auto_increment,
 dept_no int,
 dept_name varchar(20),
 emp_count int,
 manager_id int,
-primary key(sno) );
+dept_salary int);
 
 insert into department(dept_no,dept_name,manager_id) 
 values
-(1,'software',1),
-(2,'HR',1),
-(3,'sales',2),
-(4,'marketing',Null),
-(5,'Finance',3),
-(6,'management',Null),
-(7,'CEO',Null);
+(1,'CSE',Null),
+(2,'CIVIL',1),
+(3,'MECH',2),
+(4,'ECE',Null),
+(5,'EEE',3),
+(6,'MBA',Null),
+(7,'PHARMACY',Null);
 
 ==================
 professor  tables:
 ==================
+drop table professor
 create table Professor(
 Name varchar(20),
-dept_id int,
+dept_no int,
 salary int
 );
 
@@ -74,6 +40,74 @@ values
 ('Lava',4,22),
 ('Ajay',5,45);
 
+
+===============
+Employee table:
+===============
+drop table employee
+truncate employee
+create table if not exists employee (
+id int auto_increment,
+emp_id int,
+fname varchar(20) not null,
+lname varchar(20)not null,
+email varchar(20) not null,
+salary int not null,
+yoe int not null,
+dept_no int not null,
+months int,
+years int,
+primary key(id)
+);
+
+==========
+seed data:
+==========
+
+insert into employee (emp_id,fname,lname,email,salary,yoe,dept_no,months,years) 
+values 
+(1,' Sandeep ',' Nookala ','sandeep@gmail.com',100000,5,3,1,2021),
+(2,' Satish ',' Nookala ','satish@gmail.com',1000000,10,1,1,2021),
+(3,' Krishna ',' Nookala ','krishna@gmail.com',40000,20,2,1,2021),
+(4,' sweety ',' gattu ','sweety@gmail.com',3000,1,7,2,2021),
+(5,' Padma ',' taddu ','padma@gmail.com',40000,5,3,2,2021),
+(6,' anusha ',' jangili ','anusha@gamil.com',20000,2,5,2,2021) ,
+(7,' akshitha ',' avula ','akshitha@gamil.com',200000,4,7,2,2021);
+
+
+==============
+dup_emp table:
+==============
+
+drop table dup_emp
+truncate table dup_emp
+create table if not exists dup_emp (
+id int,
+fname varchar(20) not null,
+lname varchar(20)not null,
+email varchar(20) not null,
+phone varchar(10) not null,
+salary int not null
+);
+
+==========
+seed data:
+==========
+
+insert into dup_emp (id,fname,lname,email,phone,salary) 
+values 
+(1,'Sandeep','Nookala','sandeep@gmail.com','7989681270',100000),
+(2,'Satish','Nookala','satish@gmail.com','9293111539',1000000),
+(3,'Krishna','Nookala','krishna@gmail.com','9059741955',40000),
+(4,'sweety','gattu','sweety@gmail.com','8989681280',3000),
+(5,'Padma','taddu','padma@gmail.com','9979897990',40000),
+(6,'anusha','jangili','anusha@gamil.com','6878581270',20000) ,
+(7,'Sandeep','Nookala','sandeep@gmail.com','7989681270',100000),
+(8,'Satish','Nookala','satish@gmail.com','9293111539',1000000),
+(9,'Krishna','Nookala','krishna@gmail.com','9059741955',40000),
+(10,'sweety','gattu','sweety@gmail.com','8989681280',3000),
+(11,'Padma','taddu','padma@gmail.com','9979897990',40000),
+(12,'anusha','jangili','anusha@gamil.com','6878581270',20000);
 
 
 ============
@@ -125,6 +159,7 @@ products tables
 ================
 
 CREATE TABLE products(
+sl_no int,
 product_id int,
 product_name varchar(20),
 unit_price int
@@ -143,10 +178,26 @@ year int
 )
 
 ================
-customer_orders
+customer
 ================
-drop table customer_orders
-create table customer_orders (
+drop table customer
+create table customer(
+customer_id integer
+);
+
+insert into customer values(100),
+(200),
+(300),
+(500),
+(600),
+(700)
+;
+
+================
+orders
+================
+drop table orders
+create table orders (
 order_id integer,
 customer_id integer,
 item varchar(25),
@@ -154,7 +205,7 @@ order_date date,
 order_amount integer
 );
 
-insert into customer_orders values(1,100,'fan','2022-01-01',2000),
+insert into orders values(1,100,'fan','2022-01-01',2000),
 (2,100,'light','2022-01-01',2500),
 (3,200,'fan','2022-01-01',2100),
 (4,200,'light','2022-01-02',2000),
@@ -164,7 +215,6 @@ insert into customer_orders values(1,100,'fan','2022-01-01',2000),
 (8,400,'light','2022-01-03',1000),
 (9,400,'fan','2022-01-03',3000)
 ;
-
 
 ======================
 courses table :
@@ -189,7 +239,8 @@ insert into course(name,months,fee) values('big data',6.80,50000),
 ===================================
 Student table (child table):
 ===================================
-drop table
+drop table student
+truncate student
 create table if not exists student (
 student_id int,
 fname varchar(20) not null,
@@ -198,7 +249,6 @@ email varchar(20) not null,
 phone varchar(10) not null,
 course_id int not null default 1,
 marks int not null,
-company varchar(20),
 batch_date date,
 soj varchar(20) not null
 );
@@ -206,14 +256,19 @@ soj varchar(20) not null
 Seed data (intial insert data):
 -------------------------------
 
-insert into student (student_id,fname,lname,email,phone,course_id,marks,
-company,batch_date,soj) values 
-(1,'Sandeep','Nookala','sandeep@gmail.com','7989681270',1,50,'tcs','2022-11-21','job_portal'),
-(2,'Satish','Nookala','satish@gmail.com','9293111539',2,90,'synecron','2023-01-22','job_portal'),
-(3,'Krishna','Nookala','krishna@gmail.com','9059741955',4,80,'google','2022-08-19','facebook'),
-(4,'sonu','avula','sonu@gmail.com','8989681280',3,10,'IBM','2021-01-23','facebook'),
-(5,'Padma','taddu','padma@gmail.com','9979897990',4,50,'microsoft','2020-01-20','linkdin'),
-(6,'anusha','jangili','anusha@gamil.com','6878581270',2,20,'facebook','1999-03-23','linkdin');
+insert into student (student_id,fname,lname,email,phone,course_id,marks,batch_date,soj) values 
+(1,'Sandeep','Nookala','sandeep@gmail.com','7989681270',1,50,'2022-11-21','job_portal'),
+(2,'Satish','Nookala','satish@gmail.com','9293111539',2,90,'2023-01-22','job_portal'),
+(3,'Krishna','Nookala','krishna@gmail.com','9059741955',4,80,'2022-08-19','facebook'),
+(4,'sonu','avula','sonu@gmail.com','8989681280',3,10,'2021-01-23','facebook'),
+(5,'Padma','taddu','padma@gmail.com','9979897990',4,50,'2020-01-20','linkdin'),
+(6,'anusha','jangili','anusha@gamil.com','6878581270',2,20,'1999-03-23','linkdin'),
+(1,'Sandeep','Nookala','sandeep@gmail.com','7989681270',2,50,'2022-11-21','job_portal'),
+(2,'Satish','Nookala','satish@gmail.com','9293111539',1,90,'2023-01-22','job_portal'),
+(3,'Krishna','Nookala','krishna@gmail.com','9059741955',3,80,'2022-08-19','facebook'),
+(4,'sonu','avula','sonu@gmail.com','8989681280',4,10,'2021-01-23','facebook'),
+(5,'Padma','taddu','padma@gmail.com','9979897990',5,50,'2020-01-20','linkdin'),
+(6,'anusha','jangili','anusha@gamil.com','6878581270',1,20,'1999-03-23','linkdin');
 
 insert into student (fname,lname,email,phone,course_id,marks,
 company,batch_date,soj) values ('teju','Nookala=','teju@gmail.com','8889681170',6,10,'tcs','11-11-21','facebook');

@@ -6,26 +6,32 @@ salary is greater than the smallest salary of the professor in Arts Department?
 select * from professor;
 select * from department;
 
-select p.name,p.salary from professor p
-join department d
-on p.dept_id = d.id
-where d.dept_name != 'Arts' and salary > (select min(salary) from professor p
-join department d
-on p.dept_id = d.id
-where dept_name = 'Arts')
-
+select p.name,p.salary,d.dept_name
+from
+professor p
+join
+department d
+on p.dept_no = d.dept_no
+where dept_name != 'CSE' and salary >(select min(p.salary) salary
+from 
+professor p
+join
+department d
+on p.dept_no = d.dept_no
+where dept_name = 'CSE')
 
 
 =================================================================
-2.show only unique records in dup_employee table using self join?
+2.show only unique records in dup_emp table using self join?
 =================================================================
-select * from dup_employee;
+select * from dup_emp;
 
-select * from dup_employee d1
-join dup_employee d2
+select * from dup_emp d1
+join
+dup_emp d2
 on d1.fname = d2.fname
 and d1.salary = d2.salary
-where d1.id <d2.id
+where d1.id  < d2.id
 
 
 
