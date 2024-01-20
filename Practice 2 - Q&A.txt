@@ -1,0 +1,164 @@
+
+
+1.Retrieve the names of each and every customer who joined before ‘2023=03=25’?
+===============================================================================
+select * from cust_tbl where join_date < '2023=03=25';
+
+
+2.List out each and every order made by “Kim.”?
+===============================================
+select c.cust_id,c.cust_name,o.ord_id from cust_tbl c
+join ord_tbls o
+on c.cust_id = o.cust_id
+where c.cust_name = 'kim'
+
+(or)
+
+select cust_id,ord_id from ord_tbls
+where cust_id = (select cust_id from cust_tbl where cust_name = 'kim')
+
+
+3.Calculate the number of products that are present in the prod_tbl?
+====================================================================
+SELECT COUNT(*) AS Total_Products_Present FROM prod_tbl;
+
+
+4.Find out how many orders were booked as per the data in the ord_tbls?
+=======================================================================
+SELECT COUNT(*) AS Total_Orders_Booked FROM ord_tbls;
+
+
+5.What is the average order amount for customers who joined before ‘2023=03=25’?
+================================================================================
+SELECT AVG(ttl_amt) AS Avg_Order_Amt FROM ord_tbls
+WHERE cust_id IN (SELECT cust_id FROM cust_tbl WHERE join_date < '2023=03=25');
+
+
+6.Which product is the most popular among those customers who joined in April 2023?
+==================================================================================
+select prod_name from prod_tbl
+where prod_id in
+(select prod_id from ord_tbls
+where cust_id = 
+(select cust_id from cust_tbl where month(join_date)= 4 and year(join_date) =2023
+))
+
+
+7.What is the total revenue generated from orders placed in May 2023?
+=====================================================================
+select sum(ttl_amt) total_revenue from ord_tbls where month(ord_date) = 05 and year(ord_date) = 2023
+
+
+8.What is the number of orders placed by customers who have spent more than $500 on the store?
+==============================================================================================
+select count(*) number_of_orders from ord_tbls where cust_id in (
+select cust_id from ord_tbls group by cust_id having sum(ttl_amt)>500)
+
+
+9.Find the customers details who have booked more than two orders?
+==================================================================
+select * from cust_tbl
+where cust_id = (select cust_id from ord_tbls group by cust_id having count(*) >2 )
+
+
+10.Calculate the total amount spent by each customer in April 2023?
+==================================================================
+select c.cust_name,c.cust_id,sum(o.ttl_amt) spent
+from cust_tbl c
+join ord_tbls o
+on c.cust_id = o.cust_id
+where month(ord_date) = 4 and year(ord_date) =2023
+group by cust_id 
+
+
+11.List each and every product with a unit price between $50.00 and $400.00?
+============================================================================
+select prod_name from prod_tbl where unit_price between 50 and 400
+
+
+12.Find the customers who placed orders in both April and May 2023?
+===================================================================
+select cust_name from cust_tbl 
+where cust_id in (
+select cust_id from ord_tbls where month(ord_date)= 04 and year (ord_date)=2023
+intersect
+select cust_id from ord_tbls where month(ord_date)= 05 and year (ord_date)=2023
+)
+
+
+13.Find the top 5 customers who have spent the most on their orders in the past 12 months?
+==========================================================================================
+select c.cust_name,sum(o.ttl_amt) spent 
+from cust_tbl c
+join ord_tbls o 
+on c.cust_id = o.cust_id
+where ord_date between curdate()=interval 12 month and curdate()
+group by c.cust_id 
+order by spent desc 
+limit 5
+
+
+14.What is the average order amount for customers who have purchased a “Laptop”?
+================================================================================
+select avg(ttl_amt) from ord_tbls
+where cust_id in (
+select cust_id from ord_tbls
+where prod_id = (
+select prod_id from prod_tbl where prod_name = 'laptop' ))
+
+
+15.Which product has the highest profit margin?
+===============================================
+select prod_name,(unit_price=cost_price) as profit
+from prod_tbl
+order by profit desc
+limit 1
+
+
+16.Retrieve the customer name who spent the most on one single order?
+=====================================================================
+select cust_name from cust_tbl
+where cust_id = (select cust_id from ord_tbls order by ttl_amt desc limit 1)
+
+
+17.List out the products that were not ordered by any customer?
+===============================================================
+select prod_name from prod_tbl
+where prod_id not in (select distinct prod_id from ord_tbls)
+
+
+18.Calculate the average total amount spent by customers in May 2023?
+=====================================================================
+SELECT AVG(ttl_amt) AS average_ttl_amt
+FROM ord_tbls
+where month(ord_date) = 5 and year(ord_date) = 2023
+
+
+19.the customers who have not placed any orders in May 2023?
+============================================================
+select cust_name from cust_tbl
+where cust_id not in 
+(select distinct cust_id from ord_tbls
+where month(ord_date) = 5 and year(ord_date) =2023)
+
+
+20.Get the names of all customers,along with the total amount they have spent,ordered by the total amount spent from high to low?
+=================================================================================================================================
+select c.cust_name ,sum(o.ttl_amt) total_amount
+from cust_tbl c
+join ord_tbls o
+on c.cust_id = o.cust_id
+group by cust_name
+order by total_amount desc
+
+
+21.Find the customers who have placed orders in both April and May 2022 but have not purchased a “Laptop.”?
+===========================================================================================================
+select cust_name from cust_tbl
+where cust_id in (
+select cust_id from ord_tbls where month(ord_date) = 4 and year(ord_date) = 2023
+intersect
+select cust_id from ord_tbls where month(ord_date) =5 and year(ord_date) =2023
+except
+select cust_id from ord_tbls where prod_id = (select prod_id from prod_tbl where prod_name = 'laptop')
+)
