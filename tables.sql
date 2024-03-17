@@ -1,25 +1,3 @@
-use test
-==================
-Department table:
-==================
-drop table department
-truncate department
-create table department(
-dept_no int,
-dept_name varchar(20),
-emp_count int,
-manager_id int,
-dept_salary int);
-
-insert into department(dept_no,dept_name,manager_id) 
-values
-(1,'CSE',Null),
-(2,'CIVIL',1),
-(3,'MECH',2),
-(4,'ECE',Null),
-(5,'EEE',3),
-(6,'MBA',Null),
-(7,'PHARMACY',Null);
 
 ==================
 professor  tables:
@@ -41,73 +19,8 @@ values
 ('Ajay',5,45);
 
 
-===============
-Employee table:
-===============
-drop table employee
-truncate employee
-create table if not exists employee (
-id int auto_increment,
-emp_id int,
-fname varchar(20) not null,
-lname varchar(20)not null,
-email varchar(20) not null,
-salary int not null,
-yoe int not null,
-dept_no int not null,
-months int,
-years int,
-primary key(id)
-);
-
-==========
-seed data:
-==========
-
-insert into employee (emp_id,fname,lname,email,salary,yoe,dept_no,months,years) 
-values 
-(1,' Sandeep ',' Nookala ','sandeep@gmail.com',100000,5,3,1,2021),
-(2,' Satish ',' Nookala ','satish@gmail.com',1000000,10,1,1,2021),
-(3,' Krishna ',' Nookala ','krishna@gmail.com',40000,20,2,1,2021),
-(4,' sweety ',' gattu ','sweety@gmail.com',3000,1,7,2,2021),
-(5,' Padma ',' taddu ','padma@gmail.com',40000,5,3,2,2021),
-(6,' anusha ',' jangili ','anusha@gamil.com',20000,2,5,2,2021) ,
-(7,' akshitha ',' avula ','akshitha@gamil.com',200000,4,7,2,2021);
 
 
-==============
-dup_emp table:
-==============
-
-drop table dup_emp
-truncate table dup_emp
-create table if not exists dup_emp (
-id int,
-fname varchar(20) not null,
-lname varchar(20)not null,
-email varchar(20) not null,
-phone varchar(10) not null,
-salary int not null
-);
-
-==========
-seed data:
-==========
-
-insert into dup_emp (id,fname,lname,email,phone,salary) 
-values 
-(1,'Sandeep','Nookala','sandeep@gmail.com','7989681270',100000),
-(2,'Satish','Nookala','satish@gmail.com','9293111539',1000000),
-(3,'Krishna','Nookala','krishna@gmail.com','9059741955',40000),
-(4,'sweety','gattu','sweety@gmail.com','8989681280',3000),
-(5,'Padma','taddu','padma@gmail.com','9979897990',40000),
-(6,'anusha','jangili','anusha@gamil.com','6878581270',20000) ,
-(7,'Sandeep','Nookala','sandeep@gmail.com','7989681270',100000),
-(8,'Satish','Nookala','satish@gmail.com','9293111539',1000000),
-(9,'Krishna','Nookala','krishna@gmail.com','9059741955',40000),
-(10,'sweety','gattu','sweety@gmail.com','8989681280',3000),
-(11,'Padma','taddu','padma@gmail.com','9979897990',40000),
-(12,'anusha','jangili','anusha@gamil.com','6878581270',20000);
 
 
 ============
